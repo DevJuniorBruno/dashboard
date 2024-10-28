@@ -4,7 +4,7 @@ import { DollarSign } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '../ui/chart';
 import { CartesianGrid, XAxis, Bar, BarChart, YAxis, ResponsiveContainer } from 'recharts';
-import { useEffect, ReactNode } from 'react';
+import { useEffect } from 'react';
 
 interface ChartData {
     dezena: number;
