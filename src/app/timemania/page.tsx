@@ -3,7 +3,7 @@
 import api from "@/services/api";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users } from "lucide-react";
-import { ChartTimemaniaOverview } from "@/components/chartTimemania";
+import { ChartMegasenaOverview } from "@/components/chartMegasena";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
   useEffect(() => {
     async function loadLoterias() {
       try {
-        const API_URL_MEGASENA = "https://loteriascaixa-api.herokuapp.com/api/timemania";
+        const API_URL_MEGASENA = "https://loteriascaixa-api.herokuapp.com/api/megasena";
         const megaSenaResponse = await api.get(API_URL_MEGASENA);
         
         const megaSenaData = megaSenaResponse.data;
@@ -59,8 +59,8 @@ export default function Home() {
 
   return (
     <main className="sm:ml-14 p-4">
-      <h1 className="m-3" >TIME-MANIA</h1>
-      <p>Dezenas : 01 - 60</p>
+      <h1 className="m-3" >MEGA-SENA</h1>
+      <p className="m-3" >Dezenas : 01 - 60 </p>
       <section className="grid grid-cols-2 gap-4">
         <Card>
           <CardHeader>
@@ -93,7 +93,35 @@ export default function Home() {
         </Card>
       </section>
 
-      <ChartTimemaniaOverview data={chartData} />
+      <ChartMegasenaOverview data={chartData} />
+
+      <section className="grid grid-cols-2 gap-4">
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-center">
+              <CardTitle className="text-lg sm:text-xl text-gray-600">Acumulou 2024</CardTitle>
+              <Users className="ml-auto w-4 h-4" />
+            </div>
+            <CardDescription>Total acumulado em prêmios</CardDescription>
+            <CardContent>
+              <p>+ R$ 300 milhões</p>
+            </CardContent>
+          </CardHeader>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-center">
+              <CardTitle className="text-lg sm:text-xl text-gray-600">Acumulou 2023</CardTitle>
+              <Users className="ml-auto w-4 h-4" />
+            </div>
+            <CardDescription>Total acumulado em prêmios</CardDescription>
+            <CardContent>
+              <p>+ R$ 300 milhões</p>
+            </CardContent>
+          </CardHeader>
+        </Card>
+      </section>
     </main>
   );
 }

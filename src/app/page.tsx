@@ -4,17 +4,11 @@ import api from "@/services/api";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { DollarSign } from "lucide-react";
 import { ChartLotoFacilOverview } from "@/components/chartLotofacil";
-import { useEffect, useState, ReactNode } from "react";
+import { useEffect, useState} from "react";
 
 
 export default function Home() {
 
-  interface ChartConfig {
-    label?: ReactNode;
-    color?: string;
-    theme?: Record<"light" | "dark", string>;
-}
-  const [loterias, setLoterias] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [chartData, setChartData] = useState<{ dezena: number, count: number }[]>([]);
   const [concursoAtual, setConcursoAtual] = useState<any>(null);

@@ -3,7 +3,11 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
+    "strict": false,                  // Desativa o modo estrito completo
+    "noImplicitAny": false,            // Permite `any` implícito
+    "noImplicitReturns": false,        // Permite funções sem retorno explícito
+    "noUnusedLocals": false,           // Ignora variáveis locais não usadas
+    "noUnusedParameters": false,       // Ignora parâmetros não usados em funções
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",

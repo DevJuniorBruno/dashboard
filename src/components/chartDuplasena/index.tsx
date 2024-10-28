@@ -2,14 +2,16 @@
 
 import { DollarSign } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from '../ui/chart';
-import { CartesianGrid, XAxis, Bar, BarChart, YAxis, ResponsiveContainer } from 'recharts';
+import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartConfig } from '../ui/chart';
+import { CartesianGrid, XAxis, Bar, BarChart, YAxis, ResponsiveContainer  } from 'recharts';
 import { useEffect } from 'react';
 
 interface ChartData {
     dezena: number;
     count: number;
 }
+
+
 
 interface ChartLotoOverviewProps {
     data: ChartData[]; // Define a interface para os dados
@@ -18,12 +20,12 @@ interface ChartLotoOverviewProps {
 export function ChartDuplasenaOverview({ data }: ChartLotoOverviewProps) {
 
     const chartConfig = {
-        dezena: {
+        desktop: {
             label: "Contagem de Dezenas",
             color: "pink"
-        }
     }
-
+}
+    
     useEffect(() => {
         console.log('ChartOverview montado');
     }, []);
@@ -63,14 +65,14 @@ export function ChartDuplasenaOverview({ data }: ChartLotoOverviewProps) {
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={data}>
                             <CartesianGrid vertical={false} />
-                            <XAxis
+                            <XAxis 
                                 dataKey="dezena"
                                 tickLine={false}
                                 tickMargin={10}
                             />
                             <YAxis />
                             <ChartTooltip content={<ChartTooltipContent />} />
-                            <Bar dataKey="count" fill={chartConfig.dezena.color} radius={4} />
+                            <Bar dataKey="count" fill={chartConfig.desktop.color} radius={4} />
                         </BarChart>
                     </ResponsiveContainer>
                 </ChartContainer>
