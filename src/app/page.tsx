@@ -1,0 +1,107 @@
+'use client';
+
+import api from "@/services/api";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { DollarSign } from "lucide-react";
+import { ChartLotoFacilOverview } from "@/components/chartLotofacil";
+import { useEffect, useState, ReactNode } from "react";
+
+
+export default function Home() {
+
+  interface ChartConfig {
+    label?: ReactNode;
+    color?: string;
+    theme?: Record<"light" | "dark", string>;
+}
+  const [loterias, setLoterias] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [chartData, setChartData] = useState<{ dezena: number, count: number }[]>([]);
+  const [concursoAtual, setConcursoAtual] = useState<any>(null);
+  const [proximoConcurso, setProximoConcurso] = useState<string | null>(null);
+  const [dataProximoConcurso, setDataProximoConcurso] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function loadLoterias() {
+      try {
+        const API_URL_MEGASENA = "https://loteriascaixa-api.herokuapp.com/api/lotofacil";
+        const megaSenaResponse = await api.get(API_URL_MEGASENA);
+        
+        const megaSenaData = megaSenaResponse.data;
+        console.log(megaSenaData)
+
+        // Processa os dados para contagem das dezenas
+        const contagemDezenas = new Array(61).fill(0);
+        megaSenaData
+          .flatMap((loteria: any) => loteria.dezenas)
+          .forEach((dezena: string) => {
+            contagemDezenas[parseInt(dezena)]++;
+          });
+
+        setChartData(
+          contagemDezenas
+            .map((count, index) => ({
+              dezena: index,
+              count,
+            }))
+            .filter(data => data.count > 0)
+        );
+
+        setConcursoAtual(megaSenaData[0]);
+        setProximoConcurso(megaSenaData[0].proximoConcurso);
+        setDataProximoConcurso(megaSenaData[0].dataProximoConcurso);
+
+      } catch (error) {
+        console.error("Erro ao buscar dados da API:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadLoterias();
+  }, []);
+
+  if (loading) {
+    return <h1 className="m-20" >Carregando...</h1>;
+  }
+
+  return (
+    <main className="sm:ml-14 p-4">
+    <h1 className="m-3" >LOTO-FÁCIL</h1>
+    <p className="m-3" >Dezenas : 01 - 25 </p>
+      <section className="grid grid-cols-2 gap-4">
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-center">
+              <CardTitle className="text-lg sm:text-xl text-gray-600">
+                Concurso Atual: {concursoAtual.concurso}
+              </CardTitle>
+              <DollarSign className="ml-auto w-4 h-4" />
+            </div>
+            <CardDescription>Data: {concursoAtual.data}</CardDescription>
+            <CardContent>
+              <p>Valor arrecadado R${concursoAtual.valorArrecadado.toLocaleString()}</p>
+            </CardContent>
+          </CardHeader>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-center">
+              <CardTitle className="text-lg sm:text-xl text-gray-600">
+                Próximo Concurso: {proximoConcurso}
+              </CardTitle>
+              <DollarSign className="ml-auto w-4 h-4" />
+            </div>
+            <CardDescription>Data: {dataProximoConcurso}</CardDescription>
+            <CardContent>
+              <p>Valor estimado R${concursoAtual.valorEstimadoProximoConcurso.toLocaleString()}</p>
+            </CardContent>
+          </CardHeader>
+        </Card>
+      </section>
+
+      <ChartLotoFacilOverview data={chartData} />
+    </main>
+  );
+}
