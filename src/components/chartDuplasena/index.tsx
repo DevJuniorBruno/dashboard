@@ -2,8 +2,8 @@
 
 import { DollarSign } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartConfig } from '../ui/chart';
-import { CartesianGrid, XAxis, Bar, BarChart, YAxis, ResponsiveContainer  } from 'recharts';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '../ui/chart';
+import { CartesianGrid, XAxis, Bar, BarChart, YAxis, ResponsiveContainer } from 'recharts';
 import { useEffect } from 'react';
 
 interface ChartData {
@@ -21,9 +21,9 @@ export function ChartDuplasenaOverview({ data }: ChartLotoOverviewProps) {
         dezena: {
             label: "Contagem de Dezenas",
             color: "pink"
+        }
     }
-}
-    
+
     useEffect(() => {
         console.log('ChartOverview montado');
     }, []);
@@ -63,7 +63,7 @@ export function ChartDuplasenaOverview({ data }: ChartLotoOverviewProps) {
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={data}>
                             <CartesianGrid vertical={false} />
-                            <XAxis 
+                            <XAxis
                                 dataKey="dezena"
                                 tickLine={false}
                                 tickMargin={10}
