@@ -7,7 +7,6 @@ import { ChartDuplasenaOverview } from "@/components/chartDuplasena";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [loterias, setLoterias] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [chartData, setChartData] = useState<{ dezena: number, count: number }[]>([]);
   const [concursoAtual, setConcursoAtual] = useState<any>(null);
