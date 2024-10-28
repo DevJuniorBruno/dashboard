@@ -18,7 +18,7 @@ interface ChartLotoOverviewProps {
 export function ChartDuplasenaOverview({ data }: ChartLotoOverviewProps) {
 
     const chartConfig = {
-        desktop: {
+        dezena: {
             label: "Contagem de Dezenas",
             color: "pink"
     }
@@ -70,7 +70,7 @@ export function ChartDuplasenaOverview({ data }: ChartLotoOverviewProps) {
                             />
                             <YAxis />
                             <ChartTooltip content={<ChartTooltipContent />} />
-                            <Bar dataKey="count" fill={chartConfig.desktop.color} radius={4} />
+                            <Bar dataKey="count" fill={chartConfig.dezena.color} radius={4} />
                         </BarChart>
                     </ResponsiveContainer>
                 </ChartContainer>
